@@ -36,7 +36,7 @@ func (jr *JsonReader) ReadJsonFileArray(path string) []map[string]interface{} {
 	return result
 }
 
-func (jr *JsonReader) GetRandomMapsFromJsonFile(path string, amount int, allow_duplicates bool) []map[string]interface{} {
+func (jr *JsonReader) GetRandomMapsFromJsonFile(path string, amount int, allowDuplicates bool) []map[string]interface{} {
 	data := jr.ReadJsonFileArray(path)
 	// convert data to list of interface
 	var result []interface{}
@@ -44,7 +44,7 @@ func (jr *JsonReader) GetRandomMapsFromJsonFile(path string, amount int, allow_d
 		result = append(result, v)
 	}
 	random := Random{}
-	items := random.GetRandomItemsFromList(result, amount, allow_duplicates)
+	items := random.GetRandomItemsFromList(result, amount, allowDuplicates)
 	// convert items to list of map
 	var resultMaps []map[string]interface{}
 	for _, v := range items {
@@ -53,7 +53,7 @@ func (jr *JsonReader) GetRandomMapsFromJsonFile(path string, amount int, allow_d
 	return resultMaps
 }
 
-func (jr *JsonReader) GetRandomItemsFromJsonFile(path string, amount int, allow_duplicates bool) []interface{} {
+func (jr *JsonReader) GetRandomItemsFromJsonFile(path string, amount int, allowDuplicates bool) []interface{} {
 	data := jr.ReadJsonFileArray(path)
 	// convert data to list of interface
 	var result []interface{}
@@ -61,5 +61,5 @@ func (jr *JsonReader) GetRandomItemsFromJsonFile(path string, amount int, allow_
 		result = append(result, v)
 	}
 	random := Random{}
-	return random.GetRandomItemsFromList(result, amount, allow_duplicates)
+	return random.GetRandomItemsFromList(result, amount, allowDuplicates)
 }

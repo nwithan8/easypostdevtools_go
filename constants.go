@@ -27,6 +27,38 @@ type AddressesConstants struct {
 	stateEnums   map[string]AddressesConstantsEnum
 }
 
+func (c *AddressesConstants) GetCountryEnums() []AddressesConstantsEnum {
+	enums := make([]AddressesConstantsEnum, 0)
+	for _, v := range c.countryEnums {
+		enums = append(enums, v)
+	}
+	return enums
+}
+
+func (c *AddressesConstants) GetCountryEnumsInterfaces() []interface{} {
+	values := []interface{}{}
+	for _, enum := range c.GetCountryEnums() {
+		values = append(values, enum)
+	}
+	return values
+}
+
+func (c *AddressesConstants) GetStateEnums() []AddressesConstantsEnum {
+	enums := make([]AddressesConstantsEnum, 0)
+	for _, v := range c.stateEnums {
+		enums = append(enums, v)
+	}
+	return enums
+}
+
+func (c *AddressesConstants) GetStateEnumsInterfaces() []interface{} {
+	values := []interface{}{}
+	for _, enum := range c.GetStateEnums() {
+		values = append(values, enum)
+	}
+	return values
+}
+
 func (c *AddressesConstants) Init() {
 	c.countryEnums = make(map[string]AddressesConstantsEnum)
 	c.countryEnums["UNITED_STATES"] = AddressesConstantsEnum{name: "UNITED_STATES", JsonAddressFile: JsonAddressFile{JsonFile: JsonFile{Name: "US", ParentFolder: "united-states"}}}
@@ -50,18 +82,65 @@ func (c *AddressesConstants) Init() {
 	c.stateEnums["WASHINGTON"] = AddressesConstantsEnum{name: "WASHINGTON", JsonAddressFile: JsonAddressFile{JsonFile: JsonFile{Name: "WA", ParentFolder: "united-states"}}}
 }
 
-type JsonFilePath string
+func (c *AddressesConstants) ToCountryAddressEnum(addressEnum AddressesConstantsEnum) AddressesConstantsCountryEnum {
+	switch addressEnum.name {
+	case "UNITED_STATES":
+		return UNITED_STATES
+	case "CANADA":
+		return CANADA
+	case "CHINA":
+		return CHINA
+	case "HONG_KONG":
+		return HONG_KONG
+	case "UNITED_KINGDOM":
+		return UNITED_KINGDOM
+	case "GERMANY":
+		return GERMANY
+	case "SPAIN":
+		return SPAIN
+	case "MEXICO":
+		return MEXICO
+	case "AUSTRALIA":
+		return AUSTRALIA
+	}
+	panic("Unknown country")
+}
+
+func (c *AddressesConstants) ToStateAddressEnum(addressEnum AddressesConstantsEnum) AddressesConstantsStateEnum {
+	switch addressEnum.name {
+	case "ARIZONA":
+		return ARIZONA
+	case "CALIFORNIA":
+		return CALIFORNIA
+	case "IDAHO":
+		return IDAHO
+	case "KANSAS":
+		return KANSAS
+	case "NEVADA":
+		return NEVADA
+	case "NEW_YORK":
+		return NEW_YORK
+	case "TEXAS":
+		return TEXAS
+	case "UTAH":
+		return UTAH
+	case "WASHINGTON":
+		return WASHINGTON
+	}
+	panic("Unknown state")
+}
+
 type AddressesConstantsCountryEnum string
 type AddressesConstantsStateEnum string
 
 const (
-	CUSTOMS_ITEMS_JSON JsonFilePath = "json/customs_items.json"
-	CUSTOMS_INFO_JSON               = "json/customs_info.json"
-	CARRIERS_JSON                   = "json/carriers.json"
-	LABEL_OPTIONS_JSON              = "json/label_options.json"
-	TRACKERS_JSON                   = "json/trackers.json"
-	OPTIONS_JSON                    = "json/options.json"
-	PICKUPS_JSON                    = "json/pickups.json"
+	CUSTOMS_ITEMS_JSON string = "json/customs_items.json"
+	CUSTOMS_INFO_JSON         = "json/customs_info.json"
+	CARRIERS_JSON             = "json/carriers.json"
+	LABEL_OPTIONS_JSON        = "json/label_options.json"
+	TRACKERS_JSON             = "json/trackers.json"
+	OPTIONS_JSON              = "json/options.json"
+	PICKUPS_JSON              = "json/pickups.json"
 )
 
 const (
@@ -97,23 +176,12 @@ func (c *Constants) Init() {
 	c.Addresses.Init()
 }
 
-func (c *Constants) GetStateAddressFile(state AddressesConstantsStateEnum) string {
+func (c *Constants) GetCountry(country AddressesConstantsCountryEnum) AddressesConstantsEnum {
 	c.Init()
-	return c.Addresses.stateEnums[string(state)].JsonAddressFile.GetAddressFile()
+	return c.Addresses.countryEnums[string(country)]
 }
 
-func (c *Constants) GetRandomStateAddressFile() string {
-	c.Init()
-	var keys []interface{}
-	for k := range c.Addresses.stateEnums {
-		keys = append(keys, k)
-	}
-	random := Random{}
-	selectedKey := random.GetRandomItemFromList(keys)
-	return c.Addresses.stateEnums[selectedKey.(string)].JsonAddressFile.GetAddressFile()
-}
-
-func (c *Constants) GetRandomCountryAddressFile() string {
+func (c *Constants) GetRandomCountry() AddressesConstantsEnum {
 	c.Init()
 	var keys []interface{}
 	for k := range c.Addresses.countryEnums {
@@ -121,12 +189,43 @@ func (c *Constants) GetRandomCountryAddressFile() string {
 	}
 	random := Random{}
 	selectedKey := random.GetRandomItemFromList(keys)
-	return c.Addresses.countryEnums[selectedKey.(string)].JsonAddressFile.GetAddressFile()
+	return c.Addresses.countryEnums[selectedKey.(string)]
 }
 
 func (c *Constants) GetCountryAddressFile(country AddressesConstantsCountryEnum) string {
+	_country := c.GetCountry(country)
+	return _country.JsonAddressFile.GetAddressFile()
+}
+
+func (c *Constants) GetRandomCountryAddressFile() string {
+	country := c.GetRandomCountry()
+	return country.JsonAddressFile.GetAddressFile()
+}
+
+func (c *Constants) GetState(state AddressesConstantsStateEnum) AddressesConstantsEnum {
 	c.Init()
-	return c.Addresses.stateEnums[string(country)].JsonAddressFile.GetAddressFile()
+	return c.Addresses.stateEnums[string(state)]
+}
+
+func (c *Constants) GetRandomState() AddressesConstantsEnum {
+	c.Init()
+	var keys []interface{}
+	for k := range c.Addresses.stateEnums {
+		keys = append(keys, k)
+	}
+	random := Random{}
+	selectedKey := random.GetRandomItemFromList(keys)
+	return c.Addresses.stateEnums[selectedKey.(string)]
+}
+
+func (c *Constants) GetStateAddressFile(state AddressesConstantsStateEnum) string {
+	_state := c.GetState(state)
+	return _state.JsonAddressFile.GetAddressFile()
+}
+
+func (c *Constants) GetRandomStateAddressFile() string {
+	state := c.GetRandomState()
+	return state.JsonAddressFile.GetAddressFile()
 }
 
 func (c *Constants) GetAddressFile(country *AddressesConstantsCountryEnum, state *AddressesConstantsStateEnum) string {

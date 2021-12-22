@@ -17,19 +17,19 @@ func (r *Random) GetRandomInt() int {
 	return r.GetRandomIntInRange(0, 100)
 }
 
-func (r *Random) GetRandomDoubleInRange(min float32, max float32) float32 {
-	return min + rand.Float32()*(max-min)
+func (r *Random) GetRandomDoubleInRange(min float64, max float64) float64 {
+	return min + rand.Float64()*(max-min)
 }
 
-func (r *Random) GetRandomDouble() float32 {
+func (r *Random) GetRandomDouble() float64 {
 	return r.GetRandomDoubleInRange(0.0, 100.0)
 }
 
-func (r *Random) GetRandomFloatInRange(min float32, max float32) float32 {
-	return min + rand.Float32()*(max-min)
+func (r *Random) GetRandomFloatInRange(min float64, max float64) float64 {
+	return min + rand.Float64()*(max-min)
 }
 
-func (r *Random) GetRandomFloat() float32 {
+func (r *Random) GetRandomFloat() float64 {
 	return r.GetRandomFloatInRange(0.0, 100.0)
 }
 
@@ -55,8 +55,8 @@ func (r *Random) RemoveItemFromList(s []interface{}, i int) []interface{} {
 	return s[:len(s)-1]
 }
 
-func (r *Random) GetRandomItemsFromList(list []interface{}, amount int, allow_duplicates bool) []interface{} {
-	if !allow_duplicates && amount > len(list) {
+func (r *Random) GetRandomItemsFromList(list []interface{}, amount int, allowDuplicates bool) []interface{} {
+	if !allowDuplicates && amount > len(list) {
 		panic("Amount must be less than or equal to list size when unique is true")
 	}
 	var randomItems []interface{}
@@ -64,7 +64,7 @@ func (r *Random) GetRandomItemsFromList(list []interface{}, amount int, allow_du
 		loc := r.GetRandomIntInRange(0, len(list)-1)
 		choice := list[loc]
 		randomItems = append(randomItems, choice)
-		if !allow_duplicates {
+		if !allowDuplicates {
 			list = r.RemoveItemFromList(list, loc)
 		}
 	}
