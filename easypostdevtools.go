@@ -1,27 +1,58 @@
 package easypostdevtools
 
+import (
+	"github.com/EasyPost/easypost-go"
+)
+
 type EasyPostDevTools struct {
-	Addresses      Addresses      `json:"addresses"`
-	Parcels        Parcels        `json:"parcels"`
-	Insurance      Insurance      `json:"insurance"`
-	Shipments      Shipments      `json:"shipments"`
-	Options        Options        `json:"options"`
-	Rates          Rates          `json:"rates"`
-	Smartrates     Smartrates     `json:"smartrates"`
-	TaxIdentifiers TaxIdentifiers `json:"tax_identifiers"`
-	Trackers       Trackers       `json:"trackers"`
-	Batch          Batch          `json:"batch"`
-	CustomsItems   CustomsItems   `json:"customs_items"`
-	CustomsInfos   CustomsInfos   `json:"customs_infos"`
-	Events         Events         `json:"events"`
-	Fees           Fees           `json:"fees"`
-	Orders         Orders         `json:"orders"`
-	Pickups        Pickups        `json:"pickups"`
-	Reports        Reports        `json:"reports"`
-	ScanForms      ScanForms      `json:"scan_forms"`
-	Webhooks       Webhooks       `json:"webhooks"`
-	Users          Users          `json:"users"`
-	Carriers       Carriers       `json:"carriers"`
-	Labels         Labels         `json:"labels"`
-	PostageLabels  PostageLabels  `json:"postage_labels"`
+	Addresses      Addresses
+	Parcels        Parcels
+	Insurance      Insurance
+	Shipments      Shipments
+	Options        Options
+	Rates          Rates
+	Smartrates     Smartrates
+	TaxIdentifiers TaxIdentifiers
+	Trackers       Trackers
+	Batch          Batch
+	CustomsItems   CustomsItems
+	CustomsInfos   CustomsInfos
+	Events         Events
+	Fees           Fees
+	Orders         Orders
+	Pickups        Pickups
+	Reports        Reports
+	ScanForms      ScanForms
+	Webhooks       Webhooks
+	Users          Users
+	Carriers       Carriers
+	Labels         Labels
+	PostageLabels  PostageLabels
+}
+
+func (e *EasyPostDevTools) SetupKey(apiKey string) {
+	client := easypost.New(apiKey)
+	e.Addresses = Addresses{client, e}
+	e.Parcels = Parcels{client, e}
+	e.Insurance = Insurance{client, e}
+	e.Shipments = Shipments{client, e}
+	e.Options = Options{client, e}
+	e.Rates = Rates{client, e}
+	e.Smartrates = Smartrates{client, e}
+	e.TaxIdentifiers = TaxIdentifiers{client, e}
+	e.Trackers = Trackers{client, e}
+	e.Batch = Batch{client, e}
+	e.CustomsItems = CustomsItems{client, e}
+	e.CustomsInfos = CustomsInfos{client, e}
+	e.Events = Events{client, e}
+	e.Fees = Fees{client, e}
+	e.Orders = Orders{client, e}
+	e.Pickups = Pickups{client, e}
+	e.Reports = Reports{client, e}
+	e.ScanForms = ScanForms{client, e}
+	e.Webhooks = Webhooks{client, e}
+	e.Users = Users{client, e}
+	e.Carriers = Carriers{client, e}
+	e.Labels = Labels{client, e}
+	e.PostageLabels = PostageLabels{client, e}
 }
