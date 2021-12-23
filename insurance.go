@@ -17,11 +17,11 @@ func (i *Insurance) GetMap(amount float64) map[string]interface{} {
 	return _map
 }
 
-func (i *Insurance) Insure(shipment easypost.Shipment, amount float64) *easypost.Shipment {
+func (i *Insurance) Insure(shipment easypost.Shipment, amount float64) easypost.Shipment {
 	_map := i.GetMap(amount)
 	insureShipment, err := i.client.InsureShipment(shipment.ID, fmt.Sprintf("%.2f", _map["amount"]))
 	if err != nil {
-		return nil
+		panic("Could not insure shipment")
 	}
-	return insureShipment
+	return *insureShipment
 }

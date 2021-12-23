@@ -187,8 +187,7 @@ func (c *Constants) GetRandomCountry() AddressesConstantsEnum {
 	for k := range c.Addresses.countryEnums {
 		keys = append(keys, k)
 	}
-	random := Random{}
-	selectedKey := random.GetRandomItemFromList(keys)
+	selectedKey := Random{}.GetRandomItemFromList(keys)
 	return c.Addresses.countryEnums[selectedKey.(string)]
 }
 
@@ -213,8 +212,7 @@ func (c *Constants) GetRandomState() AddressesConstantsEnum {
 	for k := range c.Addresses.stateEnums {
 		keys = append(keys, k)
 	}
-	random := Random{}
-	selectedKey := random.GetRandomItemFromList(keys)
+	selectedKey := Random{}.GetRandomItemFromList(keys)
 	return c.Addresses.stateEnums[selectedKey.(string)]
 }
 

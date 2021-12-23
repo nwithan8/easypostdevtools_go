@@ -51,7 +51,7 @@ func (s *Shipments) GetReturn(toAddressMap map[string]interface{}, fromAddressMa
 
 func (s *Shipments) AddInsurance(shipment easypost.Shipment, amount float64) easypost.Shipment {
 	_shipment := s.tools.Insurance.Insure(shipment, amount)
-	return *_shipment
+	return _shipment
 }
 
 func (s *Shipments) Refund(shipment easypost.Shipment) easypost.Shipment {
@@ -65,4 +65,9 @@ func (s *Shipments) Refund(shipment easypost.Shipment) easypost.Shipment {
 func (s *Shipments) MarkForReturn(shipmentMap map[string]interface{}) map[string]interface{} {
 	shipmentMap["is_return"] = true
 	return shipmentMap
+}
+
+func (s *Shipments) GetOrMakeShipment(shipmentMap map[string]interface{}, shipment easypost.Shipment) easypost.Shipment {
+	shipment = s.tools.Shipments.GetOrMakeShipment(shipmentMap, shipment)
+	return shipment
 }

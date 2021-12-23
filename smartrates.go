@@ -7,13 +7,8 @@ type Smartrates struct {
 	tools  *EasyPostDevTools
 }
 
-func (s *Smartrates) Get(shipmentMap map[string]interface{}, shipment *easypost.Shipment) []easypost.Rate {
-	if shipment == nil {
-		if shipmentMap == nil {
-			shipmentMap = s.tools.Shipments.GetMap(nil, nil, nil)
-		}
-		*shipment = s.tools.Shipments.Create(shipmentMap)
-	}
+func (s *Smartrates) Get(shipmentMap map[string]interface{}, shipment easypost.Shipment) []easypost.Rate {
+	shipment = s.tools.Shipments.GetOrMakeShipment(shipmentMap, shipment)
 	_rates, err := s.client.GetShipmentSmartrates(shipment.ID)
 	if err != nil {
 		panic("Could not get shipment smartrates.")

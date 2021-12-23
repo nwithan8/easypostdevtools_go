@@ -53,8 +53,7 @@ func (m Mapper) JsonToObject(data []byte, obj interface{}) {
 }
 
 func (m Mapper) GetMapsFromJsonFile(filePath string, count int, allowDuplicates bool) []map[string]interface{} {
-	jsonReader := JsonReader{}
-	return jsonReader.GetRandomMapsFromJsonFile(filePath, count, allowDuplicates)
+	return JsonReader{}.GetRandomMapsFromJsonFile(filePath, count, allowDuplicates)
 }
 
 func (m Mapper) GetMapFromJsonFile(filePath string) map[string]interface{} {

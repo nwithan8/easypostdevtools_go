@@ -57,13 +57,12 @@ func (a *Addresses) GetSameState(amount int) []easypost.Address {
 
 func (a *Addresses) GetMapsDifferentStates(amount int) []map[string]interface{} {
 	constants := Constants{}
-	random := Random{}
 	if amount > len(constants.Addresses.stateEnums) {
 		panic("Amount cannot be greater than " + string(rune(len(constants.Addresses.stateEnums))))
 	}
 	_maps := []map[string]interface{}{}
 	stateEnumsIntefaces := constants.Addresses.GetStateEnumsInterfaces()
-	states := random.GetRandomItemsFromList(stateEnumsIntefaces, amount, false)
+	states := Random{}.GetRandomItemsFromList(stateEnumsIntefaces, amount, false)
 	for _, state := range states {
 		_stateEnum := state.(*AddressesConstantsStateEnum)
 		addressFile := constants.GetAddressFile(nil, _stateEnum)
@@ -100,13 +99,12 @@ func (a *Addresses) GetSameCountry(amount int) []easypost.Address {
 
 func (a *Addresses) GetMapsDifferentCountries(amount int) []map[string]interface{} {
 	constants := Constants{}
-	random := Random{}
 	if amount > len(constants.Addresses.countryEnums) {
 		panic("Amount cannot be greater than " + string(rune(len(constants.Addresses.countryEnums))))
 	}
 	_maps := []map[string]interface{}{}
 	countryEnumsIntefaces := constants.Addresses.GetCountryEnumsInterfaces()
-	countries := random.GetRandomItemsFromList(countryEnumsIntefaces, amount, false)
+	countries := Random{}.GetRandomItemsFromList(countryEnumsIntefaces, amount, false)
 	for _, country := range countries {
 		_countryEnum := country.(*AddressesConstantsCountryEnum)
 		addressFile := constants.GetAddressFile(_countryEnum, nil)

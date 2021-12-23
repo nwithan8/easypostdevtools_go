@@ -8,7 +8,7 @@ import (
 type JsonReader struct {
 }
 
-func (jr *JsonReader) ReadFile(path string) []byte {
+func (jr JsonReader) ReadFile(path string) []byte {
 	data, err := ioutil.ReadFile(path)
 	if err != nil {
 		panic("Could not read file")
@@ -16,7 +16,7 @@ func (jr *JsonReader) ReadFile(path string) []byte {
 	return data
 }
 
-func (jr *JsonReader) ReadJsonFileJson(path string) map[string]interface{} {
+func (jr JsonReader) ReadJsonFileJson(path string) map[string]interface{} {
 	data := jr.ReadFile(path)
 	var result map[string]interface{}
 	err := json.Unmarshal(data, &result)
@@ -26,7 +26,7 @@ func (jr *JsonReader) ReadJsonFileJson(path string) map[string]interface{} {
 	return result
 }
 
-func (jr *JsonReader) ReadJsonFileArray(path string) []map[string]interface{} {
+func (jr JsonReader) ReadJsonFileArray(path string) []map[string]interface{} {
 	data := jr.ReadFile(path)
 	var result []map[string]interface{}
 	err := json.Unmarshal(data, &result)
@@ -36,15 +36,14 @@ func (jr *JsonReader) ReadJsonFileArray(path string) []map[string]interface{} {
 	return result
 }
 
-func (jr *JsonReader) GetRandomMapsFromJsonFile(path string, amount int, allowDuplicates bool) []map[string]interface{} {
+func (jr JsonReader) GetRandomMapsFromJsonFile(path string, amount int, allowDuplicates bool) []map[string]interface{} {
 	data := jr.ReadJsonFileArray(path)
 	// convert data to list of interface
 	var result []interface{}
 	for _, v := range data {
 		result = append(result, v)
 	}
-	random := Random{}
-	items := random.GetRandomItemsFromList(result, amount, allowDuplicates)
+	items := Random{}.GetRandomItemsFromList(result, amount, allowDuplicates)
 	// convert items to list of map
 	var resultMaps []map[string]interface{}
 	for _, v := range items {
@@ -53,13 +52,12 @@ func (jr *JsonReader) GetRandomMapsFromJsonFile(path string, amount int, allowDu
 	return resultMaps
 }
 
-func (jr *JsonReader) GetRandomItemsFromJsonFile(path string, amount int, allowDuplicates bool) []interface{} {
+func (jr JsonReader) GetRandomItemsFromJsonFile(path string, amount int, allowDuplicates bool) []interface{} {
 	data := jr.ReadJsonFileArray(path)
 	// convert data to list of interface
 	var result []interface{}
 	for _, v := range data {
 		result = append(result, v)
 	}
-	random := Random{}
-	return random.GetRandomItemsFromList(result, amount, allowDuplicates)
+	return Random{}.GetRandomItemsFromList(result, amount, allowDuplicates)
 }
