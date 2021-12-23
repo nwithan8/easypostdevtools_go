@@ -2,6 +2,14 @@ package easypostdevtools
 
 import (
 	"github.com/EasyPost/easypost-go"
+	"github.com/joho/godotenv"
+)
+
+type KeyType int
+
+const (
+	TEST       KeyType = 1
+	PRODUCTION KeyType = 2
 )
 
 type EasyPostDevTools struct {
@@ -30,8 +38,25 @@ type EasyPostDevTools struct {
 	PostageLabels  PostageLabels
 }
 
-func (e *EasyPostDevTools) SetupKey(apiKey string) {
-	client := easypost.New(apiKey)
+func (e *EasyPostDevTools) SetupKey(key string, envDir string, keyType KeyType) {
+	if key == "" && (envDir == "" || (keyType != TEST && keyType != PRODUCTION)) {
+		panic("Must provide either key, or envDir and keyType")
+	}
+	_client := easypost.Client{}
+	if &key != nil {
+		_client = *easypost.New(key)
+	} else {
+		path := envDir + "/.env"
+		config, _ := godotenv.Read(path)
+		switch keyType {
+		case TEST:
+			key = config["EASYPOST_TEST_KEY"]
+		case PRODUCTION:
+			key = config["EASYPOST_PROD_KEY"]
+		}
+		_client = *easypost.New(key)
+	}
+	client := &_client
 	e.Addresses = Addresses{client, e}
 	e.Parcels = Parcels{client, e}
 	e.Insurance = Insurance{client, e}

@@ -135,36 +135,36 @@ type AddressesConstantsStateEnum string
 
 const (
 	CUSTOMS_ITEMS_JSON string = "json/customs_items.json"
-	CUSTOMS_INFO_JSON         = "json/customs_info.json"
-	CARRIERS_JSON             = "json/carriers.json"
-	LABEL_OPTIONS_JSON        = "json/label_options.json"
-	TRACKERS_JSON             = "json/trackers.json"
-	OPTIONS_JSON              = "json/options.json"
-	PICKUPS_JSON              = "json/pickups.json"
+	CUSTOMS_INFO_JSON  string = "json/customs_info.json"
+	CARRIERS_JSON      string = "json/carriers.json"
+	LABEL_OPTIONS_JSON string = "json/label_options.json"
+	TRACKERS_JSON      string = "json/trackers.json"
+	OPTIONS_JSON       string = "json/options.json"
+	PICKUPS_JSON       string = "json/pickups.json"
 )
 
 const (
 	UNITED_STATES  AddressesConstantsCountryEnum = "UNITED_STATES"
-	CANADA                                       = "CANADA"
-	CHINA                                        = "CHINA"
-	HONG_KONG                                    = "HONG_KONG"
-	UNITED_KINGDOM                               = "UNITED_KINGDOM"
-	GERMANY                                      = "GERMANY"
-	SPAIN                                        = "SPAIN"
-	MEXICO                                       = "MEXICO"
-	AUSTRALIA                                    = "AUSTRALIA"
+	CANADA         AddressesConstantsCountryEnum = "CANADA"
+	CHINA          AddressesConstantsCountryEnum = "CHINA"
+	HONG_KONG      AddressesConstantsCountryEnum = "HONG_KONG"
+	UNITED_KINGDOM AddressesConstantsCountryEnum = "UNITED_KINGDOM"
+	GERMANY        AddressesConstantsCountryEnum = "GERMANY"
+	SPAIN          AddressesConstantsCountryEnum = "SPAIN"
+	MEXICO         AddressesConstantsCountryEnum = "MEXICO"
+	AUSTRALIA      AddressesConstantsCountryEnum = "AUSTRALIA"
 )
 
 const (
 	ARIZONA    AddressesConstantsStateEnum = "ARIZONA"
-	CALIFORNIA                             = "CALIFORNIA"
-	IDAHO                                  = "IDAHO"
-	KANSAS                                 = "KANSAS"
-	NEVADA                                 = "NEVADA"
-	NEW_YORK                               = "NEW_YORK"
-	TEXAS                                  = "TEXAS"
-	UTAH                                   = "UTAH"
-	WASHINGTON                             = "WASHINGTON"
+	CALIFORNIA AddressesConstantsStateEnum = "CALIFORNIA"
+	IDAHO      AddressesConstantsStateEnum = "IDAHO"
+	KANSAS     AddressesConstantsStateEnum = "KANSAS"
+	NEVADA     AddressesConstantsStateEnum = "NEVADA"
+	NEW_YORK   AddressesConstantsStateEnum = "NEW_YORK"
+	TEXAS      AddressesConstantsStateEnum = "TEXAS"
+	UTAH       AddressesConstantsStateEnum = "UTAH"
+	WASHINGTON AddressesConstantsStateEnum = "WASHINGTON"
 )
 
 type Constants struct {

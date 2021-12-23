@@ -11,9 +11,9 @@ type ADDRESS_RELATIONSHIP int
 
 const (
 	SAME_STATE          ADDRESS_RELATIONSHIP = 1
-	DIFFERENT_STATES                         = 2
-	SAME_COUNTRY                             = 3
-	DIFFERENT_COUNTRIES                      = 4
+	DIFFERENT_STATES    ADDRESS_RELATIONSHIP = 2
+	SAME_COUNTRY        ADDRESS_RELATIONSHIP = 3
+	DIFFERENT_COUNTRIES ADDRESS_RELATIONSHIP = 4
 )
 
 func (a *Addresses) Create(addressMap map[string]interface{}) easypost.Address {
